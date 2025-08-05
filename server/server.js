@@ -5,6 +5,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const routes = require('./routes');
 const { errorHandler } = require('./middleware/errorHandler');
+const connectDB = require('./database/db');
 
 // config variables
 const port = process.env.SERVER_PORT || 5000;
@@ -12,6 +13,11 @@ const corsConfig = {};
 
 // express instance
 const app = express();
+
+// connect MongoDB
+connectDB();
+
+//====================
 
 // middleware setup
 app.use(express.json());
