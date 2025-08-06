@@ -1,11 +1,22 @@
 // Express
 const express = require('express');
 const router = express.Router();
+const joiValidate = require('./functions/joiValidate');
+const User = require('./models/User');
 const Form = require('./models/Form');
+const {
+  createUser_validationSchema,
+} = require('./validations/userValidations');
 
 router.post('/users', async (req, res, next) => {
+  const { error, value } = joiValidate(
+    createUser_validationSchema,
+    req.body,
+    next
+  );
+
   try {
-    const { first_name, last_name, email } = req.body;
+    const { first_name, last_name, email } = value;
     const newUser = await User.create({
       first_name,
       last_name,
