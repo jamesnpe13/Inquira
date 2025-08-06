@@ -16,16 +16,22 @@ const FieldTypes = [
   'range',
 ];
 
-// create form
-const createForm_validationSchema = Joi.object({
-  created_by: Joi.string().hex().length(24).required(),
-  title: Joi.string().trim().required(),
-  description: Joi.string().trim().optional(),
-  status: Joi.string()
-    .valid(...StatusTypes)
+// create field
+const createField_validationSchema = Joi.object({
+  type: Joi.string()
+    .valid(...FieldTypes)
     .required(),
-  slug: Joi.string().trim().required(),
-  pages: Joi.array().items(pageSchema).optional(),
+  label: Joi.string().trim().required(),
+  order: Joi.number().required(),
+  is_required: Joi.boolean().optional(),
+});
+
+// create section
+const createSection_validationSchema = Joi.object({
+  title: Joi.string().trim().optional(),
+  description: Joi.string().trim().optional(),
+  order: Joi.number().required(),
+  fields: Joi.array().items(createField_validationSchema).default([]),
 });
 
 // create page
@@ -36,22 +42,16 @@ const createPage_validationSchema = Joi.object({
   sections: Joi.array().items(createSection_validationSchema).default([]),
 });
 
-// create section
-const createSection_validationSchema = Joi.object({
-  title: Joi.string().trim().optional(),
+// create form
+const createForm_validationSchema = Joi.object({
+  created_by: Joi.string().hex().length(24).required(),
+  title: Joi.string().trim().required(),
   description: Joi.string().trim().optional(),
-  order: Joi.number().required(),
-  fields: Joi.array().items(fieldValidationSchema).default([]),
-});
-
-// create field
-const createField_validationSchema = Joi.object({
-  type: Joi.string()
-    .valid(...FieldTypes)
+  status: Joi.string()
+    .valid(...StatusTypes)
     .required(),
-  label: Joi.string().trim().required(),
-  order: Joi.number().required(),
-  is_required: Joi.boolean().optional(),
+  slug: Joi.string().trim().required(),
+  pages: Joi.array().items(createPage_validationSchema).optional(),
 });
 
 module.exports = {
