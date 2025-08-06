@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const mongoDB_url = process.env.MONGO_DB_CONNECTION_STRING;
+const mongoDB_url = `${process.env.MONGO_DB_CONNECTION_STRING}${process.env.DB_NAME}?authSource=admin`;
+console.log(mongoDB_url);
 
 async function connectDB() {
   try {

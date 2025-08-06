@@ -7,13 +7,16 @@ const Form = require('./models/Form');
 const {
   createUser_validationSchema,
 } = require('./validations/userValidations');
+const {
+  createSection_validationSchema,
+} = require('./validations/formValidations');
 
 router.post('/users', async (req, res, next) => {
-  const { error, value } = joiValidate(
-    createUser_validationSchema,
-    req.body,
-    next
-  );
+  const { error, value } = createUser_validationSchema.validate(req.body, {
+    abortEarly: false,
+  });
+
+  if (error) return next(error);
 
   try {
     const { first_name, last_name, email } = value;
@@ -48,6 +51,62 @@ router.post('/forms', async (req, res, next) => {
     res.status(201).json(newForm);
   } catch (error) {
     res.status(400).json({ error: error.message });
+  }
+});
+
+router.post('/forms/:formId/pages', async (req, res) => {
+  try {
+    const { formId } = req.params;
+    const pageData = req.body;
+
+    const form = await Form.findById(formId);
+    if (!form) {
+      return res.status(404).json({ error: 'Form not found' });
+    }
+
+    form.pages.push(pageData);
+    await form.save();
+
+    return res.status(201).json({ message: 'Page added', pages: form.pages });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// POST /api/forms/:formId/pages/:pageId/sections
+router.post('/forms/:formId/pages/:pageId/sections', async (req, res, next) => {
+  const { error, value } = createSection_validationSchema.validate(req.body, {
+    abortEarly: false,
+  });
+
+  if (error) {
+    return next(error);
+  }
+
+  console.log('here');
+  try {
+    const { formId, pageId } = req.params;
+    const sectionData = value; // { title, content, order }
+
+    const form = await Form.findById(formId);
+    if (!form) return res.status(404).json({ error: 'Form not found' });
+
+    // Find the page inside pages array by _id
+    const page = form.pages.id(pageId);
+    if (!page) return res.status(404).json({ error: 'Page not found' });
+
+    // Push new section
+    page.sections.push(sectionData);
+
+    await form.save();
+
+    return res
+      .status(201)
+      .json({ message: 'Section added', sections: page.sections });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Server error' });
   }
 });
 
