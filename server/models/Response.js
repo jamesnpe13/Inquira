@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
 const FieldResponseSchema = require('./FieldResponse');
 
-const FormResponseSchema = new mongoose.Schema(
+const ResponseSchema = new mongoose.Schema(
   {
     form_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Form',
-      required: true,
       immutable: true,
     },
     submitted_at: {
@@ -19,9 +18,9 @@ const FormResponseSchema = new mongoose.Schema(
     },
   },
   {
-    collection: 'form_responses',
+    collection: 'responses',
     timestamps: true,
   }
 );
 
-module.exports = mongoose.model('FormResponse', FormResponseSchema);
+module.exports = mongoose.model('Response', ResponseSchema);
