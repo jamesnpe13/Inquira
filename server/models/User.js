@@ -16,8 +16,6 @@ const UserSchema = new mongoose.Schema(
     },
     auth0_id: {
       type: String,
-      required: false,
-      unique: true,
     },
     refresh_token: {
       type: String,
