@@ -1,7 +1,5 @@
 const User = require('../models/User');
-const {
-  createUser_validationSchema,
-} = require('../validations/userValidations');
+const { createUser_validationSchema } = require('../validations/userValidations');
 
 // Create user
 exports.createUser = async (req, res, next) => {

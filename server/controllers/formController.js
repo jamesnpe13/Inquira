@@ -1,17 +1,16 @@
 const Form = require('../models/Form');
 const {
   createSection_validationSchema,
+  createForm_validationSchema,
+  createPage_validationSchema,
 } = require('../validations/formValidations');
 
 exports.createForm = async (req, res, next) => {
+  const { error, value } = createForm_validationSchema.validate(req.body, { abortEarly: false });
+  if (error) return next(error);
+
   try {
-    const {
-      created_by = '6891ee66093f3f5d1552a0c9',
-      title,
-      description,
-      status,
-      slug = 'asdafbqw8ebadb',
-    } = req.body;
+    const { created_by = '6891ee66093f3f5d1552a0c9', title, description, status, slug = 'asdafbqw8ebadb' } = value;
 
     const newForm = await Form.create({
       created_by,
@@ -27,9 +26,12 @@ exports.createForm = async (req, res, next) => {
 };
 
 exports.createPage = async (req, res, next) => {
+  const { error, value } = createPage_validationSchema.validate(req.body, { abortEarly: false });
+  if (error) return next(error);
+
   try {
     const { formId } = req.params;
-    const pageData = req.body;
+    const pageData = value;
 
     const form = await Form.findById(formId);
     if (!form) {
@@ -51,11 +53,8 @@ exports.createSection = async (req, res, next) => {
     abortEarly: false,
   });
 
-  if (error) {
-    return next(error);
-  }
+  if (error) return next(error);
 
-  console.log('here');
   try {
     const { formId, pageId } = req.params;
     const sectionData = value; // { title, content, order }
@@ -72,9 +71,7 @@ exports.createSection = async (req, res, next) => {
 
     await form.save();
 
-    return res
-      .status(201)
-      .json({ message: 'Section added', sections: page.sections });
+    return res.status(201).json({ message: 'Section added', sections: page.sections });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: 'Server error' });
