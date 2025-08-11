@@ -97,7 +97,7 @@ exports.userLogout = async (req, res, next) => {
     }
 
     // delete refersh_token document in db
-    const resultUser = await User.find({ _id: req.user.id });
+    const resultUser = await User.findOne({ _id: req.user.id });
     const refresh_token_idx = resultUser.refresh_tokens.findIndex((x) => x.ip === getDeviceMeta(req).ip);
     resultUser.refresh_tokens.splice(refresh_token_idx, 1);
 

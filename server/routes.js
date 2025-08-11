@@ -1,3 +1,5 @@
+const { authenticateToken } = require('./middleware/authenticateToken');
+
 // Express
 const express = require('express');
 const router = express.Router();
@@ -10,8 +12,8 @@ const formController = require('./controllers/formController');
 const utilController = require('./controllers/utilController');
 // Auth routes
 router.post('/auth/register', authController.userRegister);
-router.post('/auth/refresh', authController.refreshToken);
-router.post('/auth/logout', authController.userLogout);
+router.post('/auth/refresh', authenticateToken, authController.refreshToken);
+router.post('/auth/logout', authenticateToken, authController.userLogout);
 router.post('/auth/login', authController.userLogin);
 // User routes
 // Form routes
