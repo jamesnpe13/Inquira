@@ -5,6 +5,8 @@ const {
   createPage_validationSchema,
 } = require('../validations/formValidations');
 
+/* FORM */
+// create form
 exports.createForm = async (req, res, next) => {
   const { error, value } = createForm_validationSchema.validate(req.body, { abortEarly: false });
   if (error) return next(error);
@@ -25,6 +27,11 @@ exports.createForm = async (req, res, next) => {
   }
 };
 
+// Update form
+// delete form
+
+/* PAGE */
+// create page
 exports.createPage = async (req, res, next) => {
   const { error, value } = createPage_validationSchema.validate(req.body, { abortEarly: false });
   if (error) return next(error);
@@ -48,6 +55,8 @@ exports.createPage = async (req, res, next) => {
   }
 };
 
+/* SECTION */
+// create section
 exports.createSection = async (req, res, next) => {
   const { error, value } = createSection_validationSchema.validate(req.body, {
     abortEarly: false,
@@ -77,3 +86,6 @@ exports.createSection = async (req, res, next) => {
     return res.status(500).json({ error: 'Server error' });
   }
 };
+
+/* FIELD */
+// create field
