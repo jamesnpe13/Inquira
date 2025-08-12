@@ -6,8 +6,7 @@ const authenticateToken = (req, res, next) => {
   if (accessToken == null) return res.json({ error: 'No token provided' });
 
   jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    if (err) return next(err);
-
+    if (err) throw new Error(err);
     req.user = user;
     next();
   });

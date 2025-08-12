@@ -21,6 +21,6 @@ router.post('/forms/:formId/pages/:pageId/sections', formController.createSectio
 router.post('/forms/:formId/pages', formController.createPage);
 router.post('/forms', formController.createForm);
 // util routes
-router.get('/health', utilController.checkApiHealth);
+router.get('/health', authenticateToken, utilController.checkApiHealth);
 
 module.exports = router;
