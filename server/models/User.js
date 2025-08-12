@@ -16,12 +16,17 @@ const refreshTokenSchema = new mongoose.Schema(
       default: false,
       required: true,
     },
+    expiresAt: {
+      type: Date,
+      required: true,
+    },
   },
-
   {
     timestamps: true,
   }
 );
+
+refreshTokenSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
 const UserSchema = new mongoose.Schema(
   {
