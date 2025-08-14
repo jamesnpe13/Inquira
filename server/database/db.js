@@ -5,7 +5,7 @@ console.log(mongoDB_url);
 async function connectDB() {
   try {
     await mongoose.connect(mongoDB_url);
-    console.log('MongoDB connected on railway');
+    console.log('MongoDB connection established');
   } catch (error) {
     console.error('MongoDB connection error:', error);
     process.exit(1);
