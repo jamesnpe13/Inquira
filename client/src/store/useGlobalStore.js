@@ -1,16 +1,16 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-/* User session slice */
 const sessionSlice = (set) => ({
   user: null,
   accessToken: null,
-  storeName: 'globalStore / sessionSlice',
 
   setUser: (user) => set({ user }),
+  setAccessToken: (accessToken) => set({ accessToken }),
 });
 
 export const useGlobalStore = create((set, get) => ({
-  ...sessionSlice(set, get), // user session
+  ...sessionSlice(set, get),
+
   // add more slices if needed
 }));

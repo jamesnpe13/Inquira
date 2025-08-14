@@ -1,0 +1,69 @@
+@use './variables' as *;
+@import url('https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+@mixin body-font() {
+  font-family: 'Rubik', sans-serif;
+}
+@mixin header-font() {
+  font-family: 'Mona Sans', sans-serif;
+}
+
+.font-size_xs {
+  font-size: $font-size_xs;
+}
+.font-size_s {
+  font-size: $font-size_s;
+}
+.font-size_m {
+  font-size: $font-size_m;
+}
+.font-size_l {
+  font-size: $font-size_l;
+}
+.font-size_xl {
+  font-size: $font-size_xl;
+}
+
+body {
+  @include body-font();
+  font-size: $font-size_m;
+}
+
+h1 {
+  @include header-font();
+  font-size: $font-size_xl;
+  font-weight: 700;
+}
+
+h2 {
+  @include header-font();
+  font-size: $font-size_l;
+  font-weight: 700;
+}
+
+h3 {
+  @include header-font();
+  font-size: $font-size_m;
+  font-weight: 700;
+}
+
+p,
+span {
+  @include body-font();
+}
+
+.semi-bold {
+  font-weight: 500;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.extra-bold {
+  font-weight: 800;
+}
+
+.italic {
+  font-style: italic;
+}

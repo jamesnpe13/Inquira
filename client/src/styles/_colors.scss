@@ -1,0 +1,26 @@
+:root,
+#root[data-theme='light'] {
+  /* Light mode colors */
+  --color_primary: rgb(132, 221, 132);
+  --color_secondary: rgb(74, 74, 225);
+  --color_tertiary: rgb(225, 147, 74);
+  --color_danger: rgb(233, 83, 83);
+
+  --background-color: rgb(245, 245, 245);
+  --font-color: black;
+}
+
+#root[data-theme='dark'] {
+  /* Dark mode colors */
+  --background-color: rgb(36, 36, 46);
+  --font-color: white;
+}
+
+$color_primary: var(--color_primary);
+$background-color: var(--background-color);
+$font-color: var(--font-color);
+
+#root {
+  background-color: $background-color;
+  color: $font-color;
+}

@@ -13,7 +13,7 @@ export const ROUTES = {
     title: 'Home',
   },
   dashboard: {
-    path: '/',
+    path: '/dashboard',
     element: <Dashboard />,
     title: 'Dashboard',
   },
