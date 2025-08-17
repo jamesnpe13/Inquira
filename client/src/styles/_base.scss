@@ -1,2 +1,76 @@
+@use 'sass:color';
+@use './colors' as *;
+@use './variables' as *;
+@use './mixins' as *;
+
+body {
+  background-color: $background-color;
+}
+
+.bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-40%, -40%);
+  background-color: $gradient-color_2;
+  border-radius: 100%;
+  width: 500px;
+  height: 500px;
+  z-index: 0;
+  filter: blur(200px);
+  opacity: 0.8;
+}
+
+/* App container */
 #root {
+  position: relative;
+  background-color: $background-color;
+
+  width: 100dvw;
+  height: 100dvh;
+  // overflow-x: hidden;
+  // overflow-y: auto;
+  @include overflow(vertical);
+  padding: $spacing_m;
+  color: $shade_1;
+
+  @include hideScrollbar();
+  @include flexContainer(column);
+
+  & > * {
+    z-index: 1;
+  }
+}
+
+button {
+  @include unset();
+  @include cursorPointer();
+  @include shadow(medium);
+
+  position: relative;
+  height: $button-height_l;
+  width: 100%;
+  flex-shrink: 0;
+  padding-inline: $spacing_l;
+  border-radius: $border-radius_l;
+  background: $shade_1;
+  font-weight: 500;
+  color: $shade_6;
+  text-align: center;
+
+  &.content {
+    width: max-content;
+  }
+}
+
+.container {
+  @include flexContainer(column);
+}
+
+.panel {
+  padding: $spacing_m;
+  padding-block: $spacing_l;
+  background-color: $foreground-color;
+  border: 1px solid $foreground-color-outline;
+  border-radius: $border-radius_m;
 }

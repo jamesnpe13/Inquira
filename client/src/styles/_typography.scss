@@ -1,11 +1,12 @@
 @use './variables' as *;
-@import url('https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@use './colors' as *;
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Special+Gothic+Expanded+One&display=swap');
 
 @mixin body-font() {
   font-family: 'Rubik', sans-serif;
 }
 @mixin header-font() {
-  font-family: 'Mona Sans', sans-serif;
+  font-family: 'Special Gothic Expanded One', sans-serif;
 }
 
 .font-size_xs {
@@ -32,19 +33,23 @@ body {
 h1 {
   @include header-font();
   font-size: $font-size_xl;
-  font-weight: 700;
+  font-weight: 600;
+  letter-spacing: calc($font-size_xl * 0.05);
+  margin-bottom: $spacing_m;
 }
 
 h2 {
   @include header-font();
   font-size: $font-size_l;
-  font-weight: 700;
+  font-weight: 600;
+  letter-spacing: calc($font-size_l * 0.05);
+  margin-bottom: $spacing_s;
 }
 
 h3 {
-  @include header-font();
+  @include body-font();
   font-size: $font-size_m;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 p,
@@ -66,4 +71,49 @@ span {
 
 .italic {
   font-style: italic;
+}
+
+.text-align {
+  &-center {
+    text-align: center;
+  }
+  &-left {
+    text-align: left;
+  }
+  &-right {
+    text-align: right;
+  }
+}
+
+.text-color {
+  &-shade-6 {
+    color: $shade_6;
+  }
+  &-shade-1 {
+    color: $shade_1;
+  }
+  &-primary {
+    color: $color_primary;
+  }
+  &-secondary {
+    color: $color_secondary;
+  }
+  &-tertiary {
+    color: $color_tertiary;
+  }
+  &-black {
+    color: $color_black;
+  }
+  &-white {
+    color: $color_white;
+  }
+  &-success {
+    color: $color_success;
+  }
+  &-warning {
+    color: $color_warning;
+  }
+  &-danger {
+    color: $color_danger;
+  }
 }

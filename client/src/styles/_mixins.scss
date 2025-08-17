@@ -1,0 +1,71 @@
+@use 'sass:color';
+@use './colors' as *;
+@use './variables' as *;
+
+@mixin unset {
+  all: unset;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+@mixin cursorPointer {
+  cursor: pointer;
+  user-select: none;
+}
+
+@mixin shadow($variation) {
+  @if $variation == small {
+    box-shadow: 3px 3px 10px color.mix($color_black, transparent, 20%);
+  }
+  @if $variation == medium {
+    box-shadow: 3px 3px 15px color.mix($color_black, transparent, 60%);
+  }
+  @if $variation == large {
+    box-shadow: 3px 3px 20px color.mix($color_black, transparent, 100%);
+  }
+}
+
+@mixin hideScrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@mixin flexCenter($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin overflow($mode: none) {
+  @if $mode == none {
+    overflow: hidden;
+  }
+  @if $mode == vertical {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  @if $mode == horizontal {
+    overflow-y: hidden;
+    overflow-x: auto;
+  }
+  @if $mode == both {
+    overflow-y: auto;
+    overflow-x: auto;
+  }
+}
+
+@mixin flexContainer($direction: row) {
+  display: flex;
+  gap: $spacing_s;
+  @if $direction == row {
+    flex-direction: row;
+  }
+  @if $direction == column {
+    flex-direction: column;
+  }
+}
