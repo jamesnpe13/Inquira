@@ -6,7 +6,8 @@
   font-family: 'Rubik', sans-serif;
 }
 @mixin header-font() {
-  font-family: 'Special Gothic Expanded One', sans-serif;
+  // font-family: 'Special Gothic Expanded One', sans-serif;
+  font-family: 'Rubik', sans-serif;
 }
 
 .font-size_xs {
@@ -34,22 +35,25 @@ h1 {
   @include header-font();
   font-size: $font-size_xl;
   font-weight: 600;
-  letter-spacing: calc($font-size_xl * 0.05);
-  margin-bottom: $spacing_m;
+  // letter-spacing: calc($font-size_xl * 0.05);
+  margin-bottom: $spacing_s;
+  color: $color_primary;
 }
 
 h2 {
   @include header-font();
   font-size: $font-size_l;
   font-weight: 600;
-  letter-spacing: calc($font-size_l * 0.05);
+  // letter-spacing: calc($font-size_l * 0.05);
   margin-bottom: $spacing_s;
+  color: $color_primary;
 }
 
 h3 {
   @include body-font();
   font-size: $font-size_m;
   font-weight: 600;
+  margin-bottom: $spacing_s;
 }
 
 p,

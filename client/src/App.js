@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import AppRoutes from './router';
 import './styles/main.scss';
 import { useGlobalStore } from './store/useGlobalStore';
+import BG from './assets/bg.png';
 
 function App() {
   const { theme } = useGlobalStore();
@@ -15,7 +16,6 @@ function App() {
 
   return (
     <>
-      {/* <div className='bg'></div> */}
       <AppRoutes />
     </>
   );

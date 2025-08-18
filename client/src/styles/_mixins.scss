@@ -14,7 +14,7 @@
   user-select: none;
 }
 
-@mixin shadow($variation) {
+@mixin shadow($variation: small) {
   @if $variation == small {
     box-shadow: 3px 3px 10px color.mix($color_black, transparent, 20%);
   }
@@ -41,8 +41,8 @@
   justify-content: center;
 }
 
-@mixin overflow($mode: none) {
-  @if $mode == none {
+@mixin overflow($mode: hidden) {
+  @if $mode == hidden {
     overflow: hidden;
   }
   @if $mode == vertical {
@@ -61,7 +61,7 @@
 
 @mixin flexContainer($direction: row) {
   display: flex;
-  gap: $spacing_s;
+
   @if $direction == row {
     flex-direction: row;
   }
