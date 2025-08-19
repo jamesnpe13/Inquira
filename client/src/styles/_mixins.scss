@@ -69,3 +69,8 @@
     flex-direction: column;
   }
 }
+
+@mixin glow() {
+  filter: drop-shadow(0 0 5px #46cbff);
+  // box-shadow: 0 0 5px #46cbff;
+}

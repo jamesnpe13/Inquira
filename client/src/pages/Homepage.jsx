@@ -34,7 +34,7 @@ export default function Homepage() {
         </div>
       </div>
 
-      <div className='container padding-medium overflow-auto scrollbar-hide grow-1'>
+      <div className='container restrict padding-medium overflow-auto scrollbar-hide grow-1'>
         <h1>Let's get started!</h1>
         <h2>Create a form</h2>
         <div className='panel'>
@@ -166,8 +166,10 @@ export default function Homepage() {
           <h3>Personal information</h3>
           <hr />
           <p>Name</p>
-          <input type='text' name='' id='' placeholder='Enter your first name' />
-          <input type='text' name='' id='' placeholder='Enter your last name' />
+          <div className='container row wrap'>
+            <input className='grow' type='text' name='' id='' placeholder='Enter your first name' />
+            <input className='grow' type='text' name='' id='' placeholder='Enter your last name' />
+          </div>
           <p>Email</p>
           <input type='text' name='' id='' placeholder='Enter your email' />
           <p>Mobile</p>

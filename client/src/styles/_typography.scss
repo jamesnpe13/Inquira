@@ -1,13 +1,16 @@
 @use './variables' as *;
 @use './colors' as *;
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Special+Gothic+Expanded+One&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Special+Gothic+Expanded+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Saira+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @mixin body-font() {
-  font-family: 'Rubik', sans-serif;
+  font-family: 'Inter', sans-serif;
+  // font-family: 'Rubik', sans-serif;
 }
 @mixin header-font() {
+  font-family: 'Saira Condensed', sans-serif;
   // font-family: 'Special Gothic Expanded One', sans-serif;
-  font-family: 'Rubik', sans-serif;
+  // font-family: 'Rubik', sans-serif;
 }
 
 .font-size_xs {

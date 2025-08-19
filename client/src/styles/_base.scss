@@ -153,6 +153,11 @@ button {
   &.row {
     @include flexContainer(row);
   }
+
+  &.restrict {
+    max-width: $restrict-width;
+    align-self: center;
+  }
 }
 
 .panel {
@@ -204,9 +209,17 @@ input[type='number'] {
   padding-inline: $spacing_m;
   border-radius: $border-radius_s;
   font-weight: 300;
+  min-width: $control-min-width;
+  max-width: $control-max-width;
+  flex-grow: 1;
 
   &:focus {
     border: 2px solid $color_tertiary;
+  }
+
+  &.width-max {
+    width: 100%;
+    max-width: 100%;
   }
 }
 
@@ -238,8 +251,10 @@ input[type='checkbox'] {
 
   &:checked {
     border: 2px solid $color_tertiary;
+
     &::after {
       position: absolute;
+
       content: '';
       background-color: $color_tertiary;
       top: 0;
@@ -265,8 +280,11 @@ input[type='radio'] {
 
   &:checked {
     border: 2px solid $color_tertiary;
+
     &::after {
       position: absolute;
+      // @include glow();
+
       content: '';
       background-color: $color_tertiary;
       top: 0;
@@ -281,6 +299,8 @@ input[type='radio'] {
 
 input[type='date'],
 input[type='time'] {
+  min-width: $control-min-width;
+
   &::-webkit-calendar-picker-indicator {
     filter: invert(0.7);
   }
