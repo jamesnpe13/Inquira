@@ -1,6 +1,6 @@
 @use 'sass:color';
 
-$color_primary: #33a3e3;
+$color_primary: #79a8ff;
 $color_secondary: #e140a0;
 $color_tertiary: rgb(45, 104, 200);
 
@@ -18,7 +18,7 @@ $color_black: rgb(10, 10, 10);
 
 $tint-value: 20%;
 $tint-black-value: 100%;
-$tint: rgb(99, 154, 255);
+$tint: rgb(110, 124, 250);
 $tint-black: color.mix(black, white, $tint-black-value);
 $background-color_light: rgb(236, 236, 236);
 $background-color_dark: color.mix($tint, $tint-black, $tint-value);

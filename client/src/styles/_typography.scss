@@ -1,7 +1,6 @@
 @use './variables' as *;
 @use './colors' as *;
-// @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Special+Gothic+Expanded+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Saira+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Overpass:ital,wght@0,100..900;1,100..900&display=swap');
 
 @mixin body-font() {
   font-family: 'Inter', sans-serif;
@@ -9,24 +8,22 @@
   // font-family: 'Rubik', sans-serif;
 }
 @mixin header-font() {
-  font-family: 'Saira Condensed', sans-serif;
-  // font-family: 'Special Gothic Expanded One', sans-serif;
-  // font-family: 'Rubik', sans-serif;
+  font-family: 'Overpass', sans-serif;
 }
 
-.font-size_xs {
+.font-size-xs {
   font-size: $font-size_xs;
 }
-.font-size_s {
+.font-size-s {
   font-size: $font-size_s;
 }
-.font-size_m {
+.font-size-m {
   font-size: $font-size_m;
 }
-.font-size_l {
+.font-size-l {
   font-size: $font-size_l;
 }
-.font-size_xl {
+.font-size-xl {
   font-size: $font-size_xl;
 }
 
@@ -38,7 +35,7 @@ body {
 h1 {
   @include header-font();
   font-size: $font-size_xl;
-  font-weight: 600;
+  font-weight: 900;
   // letter-spacing: calc($font-size_xl * 0.05);
   margin-bottom: $spacing_s;
   color: $color_primary;
@@ -47,16 +44,15 @@ h1 {
 h2 {
   @include header-font();
   font-size: $font-size_l;
-  font-weight: 600;
-  // letter-spacing: calc($font-size_l * 0.05);
+  font-weight: 800;
   margin-bottom: $spacing_s;
   color: $color_primary;
 }
 
 h3 {
-  @include body-font();
+  @include header-font();
   font-size: $font-size_m;
-  font-weight: 600;
+  font-weight: 800;
   margin-bottom: $spacing_s;
 }
 
@@ -93,7 +89,7 @@ span {
   }
 }
 
-.text-color {
+.font-color {
   &-shade-6 {
     color: $shade_6;
   }
@@ -124,4 +120,9 @@ span {
   &-danger {
     color: $color_danger;
   }
+}
+
+.logo-text {
+  font-size: 60px;
+  margin: 0;
 }
