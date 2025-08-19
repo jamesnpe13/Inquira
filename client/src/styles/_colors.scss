@@ -16,10 +16,10 @@ $color_danger: #f44336;
 $color_white: rgb(244, 244, 244);
 $color_black: rgb(10, 10, 10);
 
-$tint-black-value: 100%;
-$tint-black: color.mix(black, white, $tint-black-value);
 $tint-value: 20%;
-$tint: rgb(98, 153, 255);
+$tint-black-value: 100%;
+$tint: rgb(99, 154, 255);
+$tint-black: color.mix(black, white, $tint-black-value);
 $background-color_light: rgb(236, 236, 236);
 $background-color_dark: color.mix($tint, $tint-black, $tint-value);
 

@@ -200,7 +200,8 @@ input[type='date'],
 input[type='time'],
 input[type='datetime-local'],
 input[type='email'],
-input[type='number'] {
+input[type='number'],
+select {
   @include unset();
   background-color: $shade_6;
   max-height: $control-height_m;
@@ -212,15 +213,22 @@ input[type='number'] {
   min-width: $control-min-width;
   max-width: $control-max-width;
   flex-grow: 1;
+  display: flex;
+  align-items: center;
 
   &:focus {
     border: 2px solid $color_tertiary;
+    @include glow();
   }
 
   &.width-max {
     width: 100%;
     max-width: 100%;
   }
+}
+
+select {
+  min-width: 200px;
 }
 
 textarea {
@@ -236,6 +244,7 @@ textarea {
 
   &:focus {
     border: 2px solid $color_tertiary;
+    @include glow();
   }
 }
 
@@ -333,4 +342,8 @@ input[type='file'] {
     color: $shade_1;
     margin-right: $spacing_s;
   }
+}
+
+input[type='range'] {
+  height: $control-height_m;
 }

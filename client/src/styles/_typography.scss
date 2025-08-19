@@ -5,6 +5,7 @@
 
 @mixin body-font() {
   font-family: 'Inter', sans-serif;
+  line-height: 1.6;
   // font-family: 'Rubik', sans-serif;
 }
 @mixin header-font() {
