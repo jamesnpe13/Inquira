@@ -71,6 +71,6 @@
 }
 
 @mixin glow() {
-  filter: drop-shadow(0 0 5px #46cbff);
+  filter: drop-shadow(0 0 3px #46cbff6b);
   // box-shadow: 0 0 5px #46cbff;
 }

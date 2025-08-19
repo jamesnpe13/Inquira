@@ -148,7 +148,7 @@ button {
 .container {
   gap: $spacing_s;
   @include flexContainer(column);
-  overflow-x: hidden;
+  // overflow-x: hidden;
 
   &.row {
     @include flexContainer(row);
@@ -251,10 +251,11 @@ input[type='checkbox'] {
 
   &:checked {
     border: 2px solid $color_tertiary;
+    @include glow();
 
     &::after {
       position: absolute;
-
+      @include glow();
       content: '';
       background-color: $color_tertiary;
       top: 0;
@@ -280,11 +281,11 @@ input[type='radio'] {
 
   &:checked {
     border: 2px solid $color_tertiary;
+    @include glow();
 
     &::after {
       position: absolute;
-      // @include glow();
-
+      @include glow();
       content: '';
       background-color: $color_tertiary;
       top: 0;
