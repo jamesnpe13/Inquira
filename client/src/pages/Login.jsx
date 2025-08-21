@@ -59,13 +59,13 @@ export default function Login() {
     }
   };
 
-  useEffect(() => {
-    console.log(accessToken);
-  }, [accessToken]);
+  // useEffect(() => {
+  //   console.log(accessToken);
+  // }, [accessToken]);
 
   const handleTestFetch = async () => {
     try {
-      const res = await api.post('/auth/refresh');
+      const res = await api.get('/health');
       console.log(res);
     } catch (error) {
       console.log(error);
@@ -77,6 +77,7 @@ export default function Login() {
       <div className='page-container container grow'>
         <div className='content-container center padding-small container restrict-s'>
           {/* login panel */}
+
           <div className='panel'>
             <div className='container align-items-center gap-0'>
               <h1 className='logo-text font-color-white'>Inquira.</h1>
@@ -85,6 +86,13 @@ export default function Login() {
             <hr />
 
             <p className='padding-medium'>Hey there! Let's get you signed in..</p>
+
+            {accessToken && (
+              <>
+                <br />
+                <p className=''>{accessToken}</p>
+              </>
+            )}
 
             <hr />
             <h3>User login</h3>
@@ -110,6 +118,22 @@ export default function Login() {
             </form>
 
             <button onClick={handleTestFetch}>Fetch</button>
+            <button
+              onClick={() => {
+                setAccessToken(null);
+                console.log(accessToken);
+              }}
+            >
+              Clear access token
+            </button>
+            <button
+              className='btn-secondary'
+              onClick={() => {
+                console.log(accessToken);
+              }}
+            >
+              Print access token
+            </button>
           </div>
         </div>
       </div>
