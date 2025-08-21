@@ -63,6 +63,15 @@ export default function Login() {
     console.log(accessToken);
   }, [accessToken]);
 
+  const handleTestFetch = async () => {
+    try {
+      const res = await api.post('/auth/refresh');
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div className='page-container container grow'>
@@ -99,6 +108,8 @@ export default function Login() {
                 </button>
               </div>
             </form>
+
+            <button onClick={handleTestFetch}>Fetch</button>
           </div>
         </div>
       </div>

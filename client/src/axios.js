@@ -4,6 +4,7 @@ import { useGlobalStore } from './store/useGlobalStore';
 // axios instance
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL,
+  withCredentials: true,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
@@ -14,6 +15,7 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     const { accessToken } = useGlobalStore.getState();
+    console.log(`REQ INTERCEPTOR ACCESS TOKEN: ${accessToken}`);
     if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
     return config;
   },

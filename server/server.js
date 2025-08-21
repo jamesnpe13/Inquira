@@ -9,7 +9,10 @@ const connectDB = require('./database/db');
 
 // config variables
 const port = process.env.SERVER_PORT || 5000;
-const corsConfig = {};
+const corsConfig = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+};
 
 // express instance
 const app = express();
