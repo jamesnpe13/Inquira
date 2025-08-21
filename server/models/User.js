@@ -26,8 +26,6 @@ const refreshTokenSchema = new mongoose.Schema(
   }
 );
 
-refreshTokenSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
-
 const UserSchema = new mongoose.Schema(
   {
     first_name: {
