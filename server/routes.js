@@ -13,6 +13,7 @@ const utilController = require('./controllers/utilController');
 // Auth routes
 router.post('/auth/register', authController.userRegister);
 router.post('/auth/refresh', authController.refreshToken);
+router.post('/auth/restore', authController.restoreSession);
 router.post('/auth/logout', authController.userLogout);
 router.post('/auth/login', authController.userLogin);
 // User routes

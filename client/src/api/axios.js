@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { useGlobalStore } from './store/useGlobalStore';
+import { useGlobalStore } from '../store/useGlobalStore';
+import { refreshToken } from './requests';
 
 const axiosConfig = {
   baseURL: process.env.REACT_APP_API_BASE_URL,
@@ -11,8 +12,8 @@ const axiosConfig = {
 };
 
 // axios instance
-const api = axios.create(axiosConfig);
-const apiRefresh = axios.create(axiosConfig);
+export const api = axios.create(axiosConfig);
+export const apiRefresh = axios.create(axiosConfig);
 
 // request interceptor
 api.interceptors.request.use(
@@ -30,7 +31,7 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const config = error.config;
-    const { accessToken, setAccessToken } = useGlobalStore.getState();
+    const { setAccessToken } = useGlobalStore.getState();
 
     if (error.response?.status === 401 && !config._retry) {
       console.warn('Unauthorized! Token may be expired.');
@@ -39,9 +40,7 @@ api.interceptors.response.use(
       setAccessToken(null);
 
       try {
-        const res = await apiRefresh.post('/auth/refresh');
-        console.log(res.data);
-        setAccessToken(res.data.accessToken);
+        const res = refreshToken();
 
         return api(config);
       } catch (error) {

@@ -110,6 +110,39 @@ exports.refreshToken = async (req, res, next) => {
   }
 };
 
+/* restore session */
+exports.restoreSession = async (req, res, next) => {
+  try {
+    const refreshTokenCookie = req.cookies.refreshToken;
+
+    // check if there is refresh token cookie
+    if (!refreshTokenCookie) {
+      return res.status(200).json({ session_status: 0 });
+    }
+
+    // check if token is valid
+    let decoded;
+    try {
+      decoded = jwt.verify(refreshTokenCookie, process.env.REFRESH_TOKEN_SECRET);
+    } catch (error) {
+      console.log('INVALID TOKEN');
+      return res.status(200).json({ session_status: 0 });
+    }
+
+    // search token in user db
+    const resultUser = await User.findOne({ _id: decoded?.id });
+    const hasToken = resultUser.refresh_tokens.find((x) => x.value === refreshTokenCookie);
+
+    // return status 200 json 1
+    if (!hasToken) {
+      return res.status(200).json({ session_status: 0 });
+    }
+    return res.status(200).json({ session_status: 1 });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 /* Functions */
 const generateTokens = async (userObject, req) => {
   const { ip } = getDeviceMeta(req);

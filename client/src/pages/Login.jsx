@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useRef } from 'react';
 import { ROUTES } from '../router';
 import axios from 'axios';
-import api from '../axios';
+import api from '../api/axios';
+import { jwtDecode } from 'jwt-decode';
+import useAutoRefreshToken from '../hooks/useAutoRefresh';
 
 export default function Login() {
   const { setAccessToken, accessToken } = useGlobalStore();
@@ -59,9 +61,11 @@ export default function Login() {
     }
   };
 
-  // useEffect(() => {
-  //   console.log(accessToken);
-  // }, [accessToken]);
+  useEffect(() => {
+    if (accessToken) {
+      // useAutoRefreshToken(accessToken, ...)
+    }
+  }, [accessToken]);
 
   const handleTestFetch = async () => {
     try {
