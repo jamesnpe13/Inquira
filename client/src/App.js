@@ -3,7 +3,7 @@ import AppRoutes from './router';
 import './styles/main.scss';
 import { useGlobalStore } from './store/useGlobalStore';
 import useAutoRefreshToken from './hooks/useAutoRefresh';
-import { refreshToken } from './api/requests';
+import { refreshToken, restoreSession } from './api/requests';
 import { apiRefresh, api } from './api/axios';
 
 function App() {
@@ -22,26 +22,7 @@ function App() {
     restoreSession();
   }, []);
 
-  const restoreSession = async () => {
-    try {
-      const res = await api.post(
-        '/auth/refresh',
-        {},
-        {
-          params: {
-            type: 'restore',
-          },
-        }
-      );
-
-      const newAccessToken = res.data.data?.accessToken;
-      setAccessToken(newAccessToken);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useAutoRefreshToken(accessToken, refreshToken);
+  useAutoRefreshToken(accessToken);
   return (
     <>
       {/* <div className='container bg-color-white padding-block'>Header</div> */}

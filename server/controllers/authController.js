@@ -123,11 +123,9 @@ exports.refreshToken = async (req, res, next) => {
   try {
     const resultUser = await User.findOne({ _id: id });
     const isExist = resultUser.refresh_tokens.find((x) => x.value === refreshTokenCookie);
-    console.log(isExist);
 
     if (isExist) {
       const { accessToken, refreshToken } = await generateTokens(resultUser, req);
-      console.log('refresh token ---------------->', refreshToken);
       res.cookie('refreshToken', refreshToken);
       return responseObject(res, {
         status: 201,

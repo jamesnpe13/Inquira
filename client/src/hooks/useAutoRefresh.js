@@ -2,8 +2,9 @@ import { jwtDecode } from 'jwt-decode';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../router';
+import { refreshToken } from '../api/requests';
 
-export default async function useAutoRefreshToken(token, refreshTokenFunction) {
+export default async function useAutoRefreshToken(token) {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,14 +21,14 @@ export default async function useAutoRefreshToken(token, refreshTokenFunction) {
 
     if (timeUntilRefresh <= 0) {
       // Refresh immediately if token is expired or about to expire
-      refreshTokenFunction();
+      refreshToken();
       return;
     }
 
     const timeoutId = setTimeout(() => {
-      refreshTokenFunction();
+      refreshToken();
     }, timeUntilRefresh);
 
     return () => clearTimeout(timeoutId);
-  }, [token, refreshTokenFunction]);
+  }, [token]);
 }
