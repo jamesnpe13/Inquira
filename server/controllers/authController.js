@@ -4,6 +4,7 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const ms = require('ms');
+const responseObject = require('../utils/response');
 
 /* Configs/variables */
 const maxAge = ms(process.env.REFRESH_TOKEN_EXPIRES_IN);
@@ -26,7 +27,14 @@ exports.userRegister = async (req, res, next) => {
 
   try {
     const result = await User.insertOne(newValue);
-    return res.status(201).json({ message: 'User created', user: result });
+    return responseObject(res, {
+      success: true,
+      status: 201,
+      message: 'User created',
+      data: {
+        user: result,
+      },
+    });
   } catch (error) {
     return next(error);
   }
@@ -52,7 +60,13 @@ exports.userLogin = async (req, res, next) => {
     // save refresh token to cookie
     res.cookie('refreshToken', refreshToken, refreshTokenCookieConfig);
 
-    return res.status(200).json({ message: 'User login successful', accessToken: accessToken });
+    return responseObject(res, {
+      status: 200,
+      message: 'User login successful',
+      data: {
+        accessToken: accessToken,
+      },
+    });
   } catch (error) {
     return next(error);
   }
@@ -63,7 +77,9 @@ exports.userLogout = async (req, res, next) => {
   try {
     const refreshTokenCookie = req.cookies.refreshToken;
     await clearRefreshToken(refreshTokenCookie, res);
-    res.status(200).json({ message: 'Successfully logged out' });
+    return responseObject(res, {
+      message: 'Successfully logged out',
+    });
   } catch (error) {
     return next(error);
   }
@@ -107,39 +123,6 @@ exports.refreshToken = async (req, res, next) => {
     // For other errors, log and respond with 500
     console.error(error);
     return res.status(500).json({ message: 'Internal server error' });
-  }
-};
-
-/* restore session */
-exports.restoreSession = async (req, res, next) => {
-  try {
-    const refreshTokenCookie = req.cookies.refreshToken;
-
-    // check if there is refresh token cookie
-    if (!refreshTokenCookie) {
-      return res.status(200).json({ session_status: 0 });
-    }
-
-    // check if token is valid
-    let decoded;
-    try {
-      decoded = jwt.verify(refreshTokenCookie, process.env.REFRESH_TOKEN_SECRET);
-    } catch (error) {
-      console.log('INVALID TOKEN');
-      return res.status(200).json({ session_status: 0 });
-    }
-
-    // search token in user db
-    const resultUser = await User.findOne({ _id: decoded?.id });
-    const hasToken = resultUser.refresh_tokens.find((x) => x.value === refreshTokenCookie);
-
-    // return status 200 json 1
-    if (!hasToken) {
-      return res.status(200).json({ session_status: 0 });
-    }
-    return res.status(200).json({ session_status: 1 });
-  } catch (error) {
-    console.log(error);
   }
 };
 

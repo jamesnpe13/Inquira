@@ -53,7 +53,7 @@ export default function Login() {
       console.log('User logged in successfully');
 
       // store access token
-      setAccessToken(res.data.accessToken);
+      setAccessToken(res.data.data.accessToken);
     } catch (error) {
       console.log(error);
     } finally {

@@ -1,3 +1,5 @@
+const responseObject = require('../utils/response');
+
 // util routes
 exports.checkApiHealth = async (req, res, next) => {
   const time = process.uptime();
@@ -9,8 +11,16 @@ exports.checkApiHealth = async (req, res, next) => {
         .concat('m'); // minutes
   };
 
-  res.json({
-    message: 'ok',
-    uptime: timeConv(),
+  return responseObject(res, {
+    status: 200,
+    message: 'OK',
+    data: {
+      uptime: timeConv(),
+    },
   });
+
+  // res.json({
+  //   message: 'ok',
+  //   uptime: timeConv(),
+  // });
 };
