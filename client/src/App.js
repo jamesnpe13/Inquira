@@ -7,21 +7,9 @@ import { refreshToken } from './api/requests';
 import { apiRefresh, api } from './api/axios';
 
 function App() {
-  const { theme, accessToken } = useGlobalStore();
+  const { theme, accessToken, setAccessToken } = useGlobalStore();
 
   window.getAccessToken = () => useGlobalStore.getState().accessToken;
-
-  const restoreSession = async () => {
-    console.log('attempting session restore');
-    try {
-      const res = await api.post('/auth/restore');
-      if (res.data.session_status === 1) {
-        await refreshToken();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
     const root = document.getElementById('root');
@@ -33,6 +21,25 @@ function App() {
   useEffect(() => {
     restoreSession();
   }, []);
+
+  const restoreSession = async () => {
+    try {
+      const res = await api.post(
+        '/auth/refresh',
+        {},
+        {
+          params: {
+            type: 'restore',
+          },
+        }
+      );
+
+      const newAccessToken = res.data.data?.accessToken;
+      setAccessToken(newAccessToken);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useAutoRefreshToken(accessToken, refreshToken);
   return (

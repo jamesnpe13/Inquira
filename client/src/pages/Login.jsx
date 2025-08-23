@@ -61,12 +61,6 @@ export default function Login() {
     }
   };
 
-  useEffect(() => {
-    if (accessToken) {
-      // useAutoRefreshToken(accessToken, ...)
-    }
-  }, [accessToken]);
-
   const handleTestFetch = async () => {
     try {
       const res = await api.get('/health');

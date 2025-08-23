@@ -87,44 +87,99 @@ exports.userLogout = async (req, res, next) => {
 
 /* refresh token */
 exports.refreshToken = async (req, res, next) => {
+  // get type
+  const type = req.query.type;
+
+  // get cookie
+  const refreshTokenCookie = req.cookies.refreshToken;
+
+  // check if there is cookie
+  if (!refreshTokenCookie) {
+    if (type === 'restore') {
+      return responseObject(res, {
+        message: 'No refresh token stored in cookie',
+      });
+    }
+
+    return responseObject(res, {
+      message: 'No refresh token stored in cookie',
+      status: 401,
+      success: false,
+    });
+  }
+
+  // verify cookie
+  let decoded;
   try {
-    const refreshTokenCookie = req.cookies.refreshToken;
-
-    if (!refreshTokenCookie) {
-      return res.status(401).json({ message: 'Refresh token missing' });
-    }
-
-    const { user } = (await clearRefreshToken(refreshTokenCookie, res)) || {};
-
-    if (!user) {
-      return res.status(401).json({ message: 'Invalid or malformed refresh token' });
-    }
-
-    const resultUser = await User.findOne({ _id: user.id });
-
-    if (!resultUser) {
-      return res.status(401).json({ message: 'User not found' });
-    }
-
-    const { accessToken, refreshToken } = await generateTokens(resultUser, req);
-
-    res.cookie('refreshToken', refreshToken, refreshTokenCookieConfig);
-    return res.status(200).json({ message: 'Token refreshed', accessToken });
+    decoded = jwt.verify(refreshTokenCookie, process.env.REFRESH_TOKEN_SECRET);
   } catch (error) {
-    // Check if error is a JWT error
-    if (error.name === 'TokenExpiredError') {
-      await this.userLogout(req, res, next);
-      return res.status(401).json({ message: 'Refresh token expired' });
-    } else if (error.name === 'JsonWebTokenError') {
-      await this.userLogout(req, res, next);
-      return res.status(401).json({ message: 'Invalid refresh token' });
-    }
+    return next(error);
+  }
 
-    // For other errors, log and respond with 500
-    console.error(error);
-    return res.status(500).json({ message: 'Internal server error' });
+  // get user
+  const { id } = decoded;
+
+  // find refresh token match in db
+  try {
+    const resultUser = await User.findOne({ _id: id });
+    const isExist = resultUser.refresh_tokens.find((x) => x.value === refreshTokenCookie);
+    console.log(isExist);
+
+    if (isExist) {
+      const { accessToken, refreshToken } = await generateTokens(resultUser, req);
+      console.log('refresh token ---------------->', refreshToken);
+      res.cookie('refreshToken', refreshToken);
+      return responseObject(res, {
+        status: 201,
+        message: 'Successfully reissued tokens',
+        data: {
+          accessToken: accessToken,
+        },
+      });
+    }
+  } catch (error) {
+    return next(error);
   }
 };
+// exports.refreshToken = async (req, res, next) => {
+//   try {
+//     const refreshTokenCookie = req.cookies.refreshToken;
+
+//     if (!refreshTokenCookie) {
+//       return res.status(401).json({ message: 'Refresh token missing' });
+//     }
+
+//     const { user } = (await clearRefreshToken(refreshTokenCookie, res)) || {};
+
+//     if (!user) {
+//       return res.status(401).json({ message: 'Invalid or malformed refresh token' });
+//     }
+
+//     const resultUser = await User.findOne({ _id: user.id });
+
+//     if (!resultUser) {
+//       return res.status(401).json({ message: 'User not found' });
+//     }
+
+//     const { accessToken, refreshToken } = await generateTokens(resultUser, req);
+
+//     res.cookie('refreshToken', refreshToken, refreshTokenCookieConfig);
+//     return res.status(200).json({ message: 'Token refreshed', accessToken });
+//   } catch (error) {
+//     // Check if error is a JWT error
+//     if (error.name === 'TokenExpiredError') {
+//       await this.userLogout(req, res, next);
+//       return res.status(401).json({ message: 'Refresh token expired' });
+//     } else if (error.name === 'JsonWebTokenError') {
+//       await this.userLogout(req, res, next);
+//       return res.status(401).json({ message: 'Invalid refresh token' });
+//     }
+
+//     // For other errors, log and respond with 500
+//     console.error(error);
+//     return res.status(500).json({ message: 'Internal server error' });
+//   }
+// };
 
 /* Functions */
 const generateTokens = async (userObject, req) => {
