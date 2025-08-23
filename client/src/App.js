@@ -1,15 +1,12 @@
+import './styles/main.scss';
+import useAutoRefreshToken from './hooks/useAutoRefresh';
+import { useGlobalStore } from './store/useGlobalStore';
+import { restoreSession } from './api/requests';
 import { useEffect } from 'react';
 import AppRoutes from './router';
-import './styles/main.scss';
-import { useGlobalStore } from './store/useGlobalStore';
-import useAutoRefreshToken from './hooks/useAutoRefresh';
-import { refreshToken, restoreSession } from './api/requests';
-import { apiRefresh, api } from './api/axios';
 
 function App() {
-  const { theme, accessToken, setAccessToken } = useGlobalStore();
-
-  window.getAccessToken = () => useGlobalStore.getState().accessToken;
+  const { theme, accessToken } = useGlobalStore();
 
   useEffect(() => {
     const root = document.getElementById('root');
@@ -19,10 +16,20 @@ function App() {
   }, [theme]);
 
   useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      const timer = setTimeout(() => {
+        console.log('[DEVELOPMENT MODE]');
+        restoreSession();
+      }, 0);
+
+      return () => clearTimeout(timer);
+    }
+
     restoreSession();
   }, []);
 
   useAutoRefreshToken(accessToken);
+
   return (
     <>
       {/* <div className='container bg-color-white padding-block'>Header</div> */}

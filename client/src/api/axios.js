@@ -19,7 +19,6 @@ export const apiRefresh = axios.create(axiosConfig);
 api.interceptors.request.use(
   (config) => {
     const { accessToken } = useGlobalStore.getState();
-    console.log(`REQ INTERCEPTOR ACCESS TOKEN: ${accessToken}`);
     if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
     return config;
   },
@@ -40,7 +39,7 @@ api.interceptors.response.use(
       setAccessToken(null);
 
       try {
-        const res = refreshToken();
+        await refreshToken();
 
         return api(config);
       } catch (error) {

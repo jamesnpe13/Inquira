@@ -2,7 +2,6 @@ import { useGlobalStore } from '../store/useGlobalStore';
 import { apiRefresh, api } from './axios';
 
 export const refreshToken = async () => {
-  console.log('Refreshing token');
   const { setAccessToken } = useGlobalStore.getState();
   try {
     const res = await apiRefresh.post('/auth/refresh', {}, { params: { type: 'refresh' } });
@@ -13,12 +12,10 @@ export const refreshToken = async () => {
   }
 };
 export const restoreSession = async () => {
-  console.log('Restoring session');
-
   const { setAccessToken } = useGlobalStore.getState();
   try {
     const res = await apiRefresh.post('/auth/refresh', {}, { params: { type: 'restore' } });
-    setAccessToken(res.data.data.accessToken);
+    setAccessToken(res.data?.data?.accessToken);
     return res;
   } catch (error) {
     console.error(error);
