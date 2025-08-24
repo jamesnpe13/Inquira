@@ -1,10 +1,10 @@
 const { createUser_validationSchema } = require('../validations/userValidations');
-const { getDeviceMeta } = require('../functions/metadata');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const ms = require('ms');
 const responseObject = require('../utils/response');
+const { generateTokens, clearRefreshToken } = require('../utils/sessionTokens');
 
 /* Configs/variables */
 const maxAge = ms(process.env.REFRESH_TOKEN_EXPIRES_IN);
@@ -137,102 +137,5 @@ exports.refreshToken = async (req, res, next) => {
     }
   } catch (error) {
     return next(error);
-  }
-};
-// exports.refreshToken = async (req, res, next) => {
-//   try {
-//     const refreshTokenCookie = req.cookies.refreshToken;
-
-//     if (!refreshTokenCookie) {
-//       return res.status(401).json({ message: 'Refresh token missing' });
-//     }
-
-//     const { user } = (await clearRefreshToken(refreshTokenCookie, res)) || {};
-
-//     if (!user) {
-//       return res.status(401).json({ message: 'Invalid or malformed refresh token' });
-//     }
-
-//     const resultUser = await User.findOne({ _id: user.id });
-
-//     if (!resultUser) {
-//       return res.status(401).json({ message: 'User not found' });
-//     }
-
-//     const { accessToken, refreshToken } = await generateTokens(resultUser, req);
-
-//     res.cookie('refreshToken', refreshToken, refreshTokenCookieConfig);
-//     return res.status(200).json({ message: 'Token refreshed', accessToken });
-//   } catch (error) {
-//     // Check if error is a JWT error
-//     if (error.name === 'TokenExpiredError') {
-//       await this.userLogout(req, res, next);
-//       return res.status(401).json({ message: 'Refresh token expired' });
-//     } else if (error.name === 'JsonWebTokenError') {
-//       await this.userLogout(req, res, next);
-//       return res.status(401).json({ message: 'Invalid refresh token' });
-//     }
-
-//     // For other errors, log and respond with 500
-//     console.error(error);
-//     return res.status(500).json({ message: 'Internal server error' });
-//   }
-// };
-
-/* Functions */
-const generateTokens = async (userObject, req) => {
-  const { ip } = getDeviceMeta(req);
-  const payload = {
-    id: userObject._id,
-    email: userObject.email,
-    firstName: userObject.first_name,
-    lastName: userObject.last_name,
-  };
-  // issue access token
-  const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN,
-  });
-
-  // issue refresh token
-  const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
-    expiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN,
-  });
-
-  const refresh_token_idx = userObject.refresh_tokens.findIndex((x) => x.ip === ip);
-  const isIpExist = userObject.refresh_tokens[refresh_token_idx];
-
-  // save refresh to db
-  // check refresh token with matching device ip
-  if (isIpExist) {
-    userObject.refresh_tokens[refresh_token_idx].value = refreshToken; // if ip exists in db then overwrite
-  } else {
-    userObject.refresh_tokens.push({
-      value: refreshToken,
-      ip: ip,
-      expiresAt: new Date(Date.now() + ms(process.env.REFRESH_TOKEN_EXPIRES_IN)),
-    });
-  }
-  await userObject.save();
-
-  return { accessToken: accessToken, refreshToken: refreshToken };
-};
-
-const clearRefreshToken = async (refreshTokenCookie, res) => {
-  // delete cookie
-  if (refreshTokenCookie) {
-    try {
-      const decoded = jwt.verify(refreshTokenCookie, process.env.REFRESH_TOKEN_SECRET);
-      const { id } = decoded;
-
-      // delete from db
-      const resultUser = await User.findOne({ _id: id });
-      const refresh_token_idx = resultUser.refresh_tokens.findIndex((x) => x.value === refreshTokenCookie);
-      resultUser.refresh_tokens.splice(refresh_token_idx, 1);
-      await resultUser.save();
-      return { user: decoded };
-    } catch (error) {
-    } finally {
-      res.clearCookie('refreshToken', refreshTokenCookieConfig);
-    }
   }
 };
