@@ -68,69 +68,66 @@ export default function Login() {
   };
 
   return (
-    <>
-      <div className='page-container container grow'>
-        <div className='content-container center padding-small container restrict-s'>
-          {/* login panel */}
-
-          <div className='panel'>
-            <div className='container align-items-center gap-0'>
-              <h1 className='logo-text font-color-white'>Inquira.</h1>
-              <h2>Forms Made Easy</h2>
-            </div>
-            <hr />
-
-            <p className='padding-medium'>Hey there! Let's get you signed in..</p>
-
-            {accessToken && (
-              <>
-                <br />
-                <p className=''>{accessToken}</p>
-              </>
-            )}
-
-            <hr />
-            <h3>User login</h3>
-            <form className='container' action='' ref={formRef} onSubmit={handleClickSubmit}>
-              <input type='text' placeholder='Email' name='inputEmail' autoComplete='inputEmail' />
-              <input
-                type='password'
-                placeholder='Password'
-                name='inputPassword'
-                ref={passwordRef}
-                autoComplete='inputPassword'
-              />
-
-              <button type='button' onClick={handleClickRegister} className='btn-text  font-size-s'>
-                Create account
-              </button>
-
-              <div className='container row margin-top-medium'>
-                <button type='submit' className='btn-success grow'>
-                  Let's go!
-                </button>
-              </div>
-            </form>
-
-            <button onClick={handleTestFetch}>Fetch</button>
-            <button
-              onClick={() => {
-                setAccessToken(null);
-              }}
-            >
-              Clear access token
-            </button>
-            <button
-              className='btn-secondary'
-              onClick={() => {
-                console.log(accessToken);
-              }}
-            >
-              Print access token
-            </button>
+    <div className='page-container container padding-small grow center-single overflow-y-scroll'>
+      <div className='content-container container restrict-s'>
+        {/* login panel */}
+        <div className='panel'>
+          <div className='container align-items-center gap-0'>
+            <h1 className='logo-text font-color-white'>Inquira.</h1>
+            <h2>Forms Made Easy</h2>
           </div>
+          <hr />
+
+          <p className='padding-medium'>Hey there! Let's get you signed in..</p>
+
+          {accessToken && (
+            <>
+              <br />
+              <p className=''>{accessToken}</p>
+            </>
+          )}
+
+          <hr />
+          <h3>User login</h3>
+          <form className='container' action='' ref={formRef} onSubmit={handleClickSubmit}>
+            <input type='text' placeholder='Email' name='inputEmail' autoComplete='inputEmail' />
+            <input
+              type='password'
+              placeholder='Password'
+              name='inputPassword'
+              ref={passwordRef}
+              autoComplete='inputPassword'
+            />
+
+            <button type='button' onClick={handleClickRegister} className='btn-text  font-size-s'>
+              Create account
+            </button>
+
+            <div className='container row margin-top-medium'>
+              <button type='submit' className='btn-success grow'>
+                Let's go!
+              </button>
+            </div>
+          </form>
+
+          <button onClick={handleTestFetch}>Fetch</button>
+          <button
+            onClick={() => {
+              setAccessToken(null);
+            }}
+          >
+            Clear access token
+          </button>
+          <button
+            className='btn-secondary'
+            onClick={() => {
+              console.log(accessToken);
+            }}
+          >
+            Print access token
+          </button>
         </div>
       </div>
-    </>
+    </div>
   );
 }

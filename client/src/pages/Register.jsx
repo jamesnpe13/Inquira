@@ -78,8 +78,8 @@ export default function Register() {
 
   return (
     <>
-      <div className='page-container container grow'>
-        <div className='content-container center padding-small container restrict-s'>
+      <div className='page-container container grow padding-small center-single overflow-auto'>
+        <div className='content-container container restrict-s'>
           {/* login panel */}
           <div className='panel'>
             <div className='container align-items-center gap-0'>
