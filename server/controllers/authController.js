@@ -4,17 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const ms = require('ms');
 const responseObject = require('../utils/response');
-const { generateTokens, clearRefreshToken } = require('../utils/sessionTokens');
-
-/* Configs/variables */
-const maxAge = ms(process.env.REFRESH_TOKEN_EXPIRES_IN);
-const refreshTokenCookieConfig = {
-  httpOnly: true,
-  secure: true,
-  sameSite: 'none',
-  path: '/',
-  maxAge,
-};
+const { generateTokens, clearRefreshToken, refreshTokenCookieConfig } = require('../utils/sessionTokens');
 
 /* register user */
 exports.userRegister = async (req, res, next) => {

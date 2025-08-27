@@ -1,6 +1,6 @@
 import { useGlobalStore } from '../store/useGlobalStore';
 import { useNavigate } from 'react-router-dom';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ROUTES } from '../router';
 import api from '../api/axios';
 
@@ -47,23 +47,14 @@ export default function Login() {
       };
 
       const res = await api.post('/auth/login', payload); // post to api
-      console.log('User logged in successfully');
 
       // store access token
       setAccessToken(res.data.data.accessToken);
+      navigate(ROUTES.dashboard.path);
     } catch (error) {
       console.log(error);
     } finally {
       passwordRef.current.value = ''; // clear password field
-    }
-  };
-
-  const handleTestFetch = async () => {
-    try {
-      const res = await api.get('/health');
-      console.log(res);
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -109,23 +100,6 @@ export default function Login() {
               </button>
             </div>
           </form>
-
-          <button onClick={handleTestFetch}>Fetch</button>
-          <button
-            onClick={() => {
-              setAccessToken(null);
-            }}
-          >
-            Clear access token
-          </button>
-          <button
-            className='btn-secondary'
-            onClick={() => {
-              console.log(accessToken);
-            }}
-          >
-            Print access token
-          </button>
         </div>
       </div>
     </div>

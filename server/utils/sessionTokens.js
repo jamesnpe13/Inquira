@@ -1,5 +1,16 @@
+const ms = require('ms');
 const { getDeviceMeta } = require('../functions/metadata');
 const jwt = require('jsonwebtoken');
+
+/* Configs/variables */
+const maxAge = ms(process.env.REFRESH_TOKEN_EXPIRES_IN);
+const refreshTokenCookieConfig = {
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none',
+  path: '/',
+  maxAge,
+};
 
 /* Functions */
 const generateTokens = async (userObject, req) => {
@@ -59,4 +70,4 @@ const clearRefreshToken = async (refreshTokenCookie, res) => {
   }
 };
 
-module.exports = { generateTokens, clearRefreshToken };
+module.exports = { generateTokens, clearRefreshToken, refreshTokenCookieConfig };
