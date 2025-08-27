@@ -85,23 +85,6 @@ export default function Login() {
               </button>
             </div>
           </form>
-
-          <button onClick={handleTestFetch}>Fetch</button>
-          <button
-            onClick={() => {
-              setAccessToken(null);
-            }}
-          >
-            Clear access token
-          </button>
-          <button
-            className='btn-secondary'
-            onClick={() => {
-              console.log(accessToken);
-            }}
-          >
-            Print access token
-          </button>
         </div>
       </div>
     </div>
