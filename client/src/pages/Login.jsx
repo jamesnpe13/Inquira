@@ -1,8 +1,7 @@
 import { useGlobalStore } from '../store/useGlobalStore';
 import { useNavigate } from 'react-router-dom';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { ROUTES } from '../router';
-import api from '../api/axios';
 
 export default function Login() {
   const { setAccessToken, accessToken } = useGlobalStore();
@@ -41,30 +40,7 @@ export default function Login() {
   // submit form
   const login = async (data) => {
     try {
-      const payload = {
-        email: data.inputEmail,
-        password: data.inputPassword,
-      };
-
-      const res = await api.post('/auth/login', payload); // post to api
-      console.log('User logged in successfully');
-
-      // store access token
-      setAccessToken(res.data.data.accessToken);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      passwordRef.current.value = ''; // clear password field
-    }
-  };
-
-  const handleTestFetch = async () => {
-    try {
-      const res = await api.get('/health');
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   return (
