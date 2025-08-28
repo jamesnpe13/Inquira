@@ -42,7 +42,7 @@ exports.userLogin = async (req, res, next) => {
     const { password: dbHashedPassword } = resultUser;
 
     // check if password match
-    const isMatch = bcrypt.compare(inputPassword, dbHashedPassword);
+    const isMatch = await bcrypt.compare(inputPassword, dbHashedPassword);
     if (!isMatch) throw new Error('Invalid credentials');
 
     const { accessToken, refreshToken } = await generateTokens(resultUser, req);

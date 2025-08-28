@@ -1,7 +1,8 @@
 import { useGlobalStore } from '../store/useGlobalStore';
 import { useNavigate } from 'react-router-dom';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { ROUTES } from '../router';
+import { apiAuth } from '../api/axios';
 
 export default function Login() {
   const { setAccessToken, accessToken } = useGlobalStore();
@@ -16,7 +17,7 @@ export default function Login() {
   };
 
   // Login click handler
-  const handleClickSubmit = (e) => {
+  const handleClickSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(formRef.current);
     const data = Object.fromEntries(formData.entries());
@@ -34,13 +35,17 @@ export default function Login() {
 
     if (hasError) return;
 
-    login(data);
-  };
-
-  // submit form
-  const login = async (data) => {
     try {
-    } catch (error) {}
+      console.log('DATA', data);
+      const res = await apiAuth.post('/auth/login', { email: data?.inputEmail, password: data?.inputPassword });
+      setAccessToken(res.data?.data?.accessToken);
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+      console.log(error.response?.data?.message);
+    } finally {
+      passwordRef.current.value = '';
+    }
   };
 
   return (
