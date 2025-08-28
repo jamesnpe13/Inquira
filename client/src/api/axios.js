@@ -5,6 +5,7 @@ const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 export const api = axios.create({
   baseURL,
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -42,14 +43,7 @@ apiAuth.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const res = await axios.post(
-          '/auth/refresh',
-          {},
-          {
-            baseURL: process.env.REACT_APP_API_BASE_URL,
-            withCredentials: true,
-          }
-        );
+        const res = await api.post('/auth/refresh');
         console.log(res);
 
         useGlobalStore.getState().setAccessToken(res?.data?.data?.accessToken);
