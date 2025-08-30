@@ -1,7 +1,7 @@
 import { useGlobalStore } from '../store/useGlobalStore';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
-import { ROUTES } from '../router';
+import { ROUTES } from '../router/routerConfig';
 import { apiAuth } from '../services/apiService';
 import PageLoading from '../components/PageLoading';
 import { startSession } from '../services/sessionService';

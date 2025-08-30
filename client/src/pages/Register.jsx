@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../router';
+import { ROUTES } from '../router/routerConfig';
 import axios from 'axios';
 
 export default function Register() {

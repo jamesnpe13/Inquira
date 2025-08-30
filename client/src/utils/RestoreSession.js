@@ -2,7 +2,7 @@ import { endSession, restoreSession } from '../services/sessionService';
 import PageLoading from '../components/PageLoading';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { ROUTES } from '../router';
+import { ROUTES } from '../router/routerConfig';
 
 export default function RestoreSession({ children }) {
   const navigate = useNavigate();

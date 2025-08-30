@@ -1,7 +1,7 @@
 import './styles/main.scss';
 import { useGlobalStore } from './store/useGlobalStore';
 import { useEffect } from 'react';
-import AppRoutes from './router';
+import AppRoutes from './router/router';
 import { apiAuth } from './services/apiService';
 
 function App() {

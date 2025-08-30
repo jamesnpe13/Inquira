@@ -1,16 +1,23 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import PageLoading from '../components/PageLoading';
 import { useGlobalStore } from '../store/useGlobalStore';
-import { Navigate } from 'react-router-dom';
-import { ROUTES } from '../router';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../router/routerConfig';
 
 export default function RequireAuth({ children }) {
-  const { accessToken, setAccessToken, user, setUser } = useGlobalStore();
+  const [isAuth, setIsAuth] = useState(false);
+  const { accessToken } = useGlobalStore.getState();
+  const navigate = useNavigate();
 
-  if (!accessToken) {
-    console.log('Unauthorized access. Please login');
+  useEffect(() => {
+    if (accessToken) {
+      setIsAuth(true);
+    } else {
+      navigate(ROUTES.login.path, { replace: true });
+      console.error('Unauthorized access. Please log in');
+    }
+  }, []);
 
-    return <Navigate to={ROUTES.login.path} replace />;
-  }
-
+  if (!isAuth) return <PageLoading />;
   return children;
 }

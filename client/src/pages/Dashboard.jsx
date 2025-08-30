@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useGlobalStore } from '../store/useGlobalStore';
 import { useNavigate } from 'react-router-dom';
 import { endSession } from '../services/sessionService';
-import { ROUTES } from '../router';
+import { ROUTES } from '../router/routerConfig';
 
 const dashboardViews = {
   view1: <p>view 1</p>,
