@@ -1,14 +1,26 @@
 import { useGlobalStore } from '../store/useGlobalStore';
 import { useNavigate } from 'react-router-dom';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ROUTES } from '../router';
-import { apiAuth } from '../api/axios';
+import { apiAuth } from '../services/apiService';
+import PageLoading from '../components/PageLoading';
+import { startSession } from '../services/sessionService';
 
 export default function Login() {
   const { setAccessToken, accessToken } = useGlobalStore();
   const navigate = useNavigate();
   const passwordRef = useRef();
   const formRef = useRef();
+  const [isLoading, setIsLoading] = useState(true);
+
+  // check if session exists then redirect to dashboard
+  useEffect(() => {
+    if (accessToken) {
+      navigate(ROUTES.dashboard.path);
+    }
+
+    setIsLoading(false);
+  }, []);
 
   // Register click handler
   const handleClickRegister = (e) => {
@@ -36,17 +48,18 @@ export default function Login() {
     if (hasError) return;
 
     try {
-      console.log('DATA', data);
-      const res = await apiAuth.post('/auth/login', { email: data?.inputEmail, password: data?.inputPassword });
-      setAccessToken(res.data?.data?.accessToken);
-      console.log(res);
+      const isSuccess = await startSession({ email: data?.inputEmail, password: data?.inputPassword });
+      if (isSuccess) {
+        navigate(ROUTES.dashboard.path, { replace: true });
+      }
     } catch (error) {
       console.error(error);
-      console.log(error.response?.data?.message);
     } finally {
       passwordRef.current.value = '';
     }
   };
+
+  if (isLoading) return <PageLoading />;
 
   return (
     <div className='page-container container padding-small grow center-single overflow-y-scroll'>

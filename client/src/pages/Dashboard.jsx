@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useGlobalStore } from '../store/useGlobalStore';
 import { useNavigate } from 'react-router-dom';
-import RequireAuth from '../utils/RequireAuth';
+import { endSession } from '../services/sessionService';
+import { ROUTES } from '../router';
 
 const dashboardViews = {
   view1: <p>view 1</p>,
@@ -15,11 +16,15 @@ export default function Dashboard() {
   const { setAccessToken, accessToken } = useGlobalStore();
   const [currentView, setCurrentView] = useState(defaultView);
 
+  const handleClickLogout = async () => {
+    await endSession();
+    navigate(ROUTES.login.path, { replace: true });
+  };
+
   return (
-    <RequireAuth>
-      <div>
-        <p>Dashboard</p>
-      </div>
-    </RequireAuth>
+    <div>
+      <p>Dashboard</p>
+      <button onClick={handleClickLogout}>Log out</button>
+    </div>
   );
 }

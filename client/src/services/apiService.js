@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useGlobalStore } from '../store/useGlobalStore';
+import { refreshToken } from './sessionService';
 
 const baseURL = process.env.REACT_APP_API_BASE_URL;
 
@@ -38,16 +39,14 @@ apiAuth.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+    const { setAccessToken } = useGlobalStore.getState();
 
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       try {
-        const res = await api.post('/auth/refresh');
-        console.log(res);
-
-        useGlobalStore.getState().setAccessToken(res?.data?.data?.accessToken);
-
+        const res = await refreshToken();
+        setAccessToken(res?.data?.data?.accessToken);
         return apiAuth(originalRequest);
       } catch (error) {
         return Promise.reject({

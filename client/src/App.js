@@ -2,10 +2,10 @@ import './styles/main.scss';
 import { useGlobalStore } from './store/useGlobalStore';
 import { useEffect } from 'react';
 import AppRoutes from './router';
-import { api, apiAuth } from './api/axios';
+import { apiAuth } from './services/apiService';
 
 function App() {
-  const { theme, accessToken } = useGlobalStore();
+  const { theme } = useGlobalStore();
 
   useEffect(() => {
     const root = document.getElementById('root');
@@ -25,12 +25,7 @@ function App() {
 
   window.getHealth = getHealth;
 
-  return (
-    <>
-      {/* <div className='container bg-color-white padding-block'>Header</div> */}
-      <AppRoutes />
-    </>
-  );
+  return <AppRoutes />;
 }
 
 export default App;
