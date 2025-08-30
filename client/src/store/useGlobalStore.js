@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { jwtDecode } from 'jwt-decode';
 
 export const useGlobalStore = create(
   persist(
@@ -10,7 +11,19 @@ export const useGlobalStore = create(
       user: null,
       accessToken: null,
       setUser: (user) => set({ user }),
-      setAccessToken: (accessToken) => set({ accessToken }),
+      setAccessToken: (accessToken) => {
+        let user = null;
+
+        if (accessToken) {
+          try {
+            user = jwtDecode(accessToken);
+          } catch (err) {
+            console.error('Failed to decode access token:', err);
+          }
+        }
+
+        set({ accessToken, user });
+      },
     }),
     {
       name: 'theme-storage', // key in localStorage

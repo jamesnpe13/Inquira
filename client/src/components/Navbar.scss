@@ -1,0 +1,22 @@
+@use '../styles/colors' as *;
+@use '../styles/variables' as *;
+@use '../styles/typography' as *;
+
+.navbar {
+  height: $control-height_l;
+  width: 100%;
+  display: flex;
+
+  .logo-container {
+    h5 {
+      @include header-font();
+      font-size: $font-size_l;
+    }
+  }
+
+  .nav-container {
+  }
+
+  .menu-panel {
+  }
+}

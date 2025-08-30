@@ -1,30 +1,33 @@
-import { useState } from 'react';
+import { useDashboardStore } from '../store/useDashboardStore';
 import { useGlobalStore } from '../store/useGlobalStore';
-import { useNavigate } from 'react-router-dom';
 import { endSession } from '../services/sessionService';
 import { ROUTES } from '../router/routerConfig';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+
+/* views */
+import ResponsesView from '../views/dashboard/ResponsesView';
+import AccountView from '../views/dashboard/AccountView';
+import FormView from '../views/dashboard/FormView';
+import MainView from '../views/dashboard/MainView';
+import Navbar from '../components/Navbar';
 
 const dashboardViews = {
-  view1: <p>view 1</p>,
-  view2: <p>view 2</p>,
-  view3: <p>view 3</p>,
+  responsesView: <ResponsesView />,
+  accountView: <AccountView />,
+  formView: <FormView />,
+  mainView: <MainView />,
 };
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const defaultView = dashboardViews.view1;
-  const { setAccessToken, accessToken } = useGlobalStore();
+  const defaultView = dashboardViews.mainView;
   const [currentView, setCurrentView] = useState(defaultView);
 
-  const handleClickLogout = async () => {
-    await endSession();
-    navigate(ROUTES.login.path, { replace: true });
-  };
-
   return (
-    <div>
-      <p>Dashboard</p>
-      <button onClick={handleClickLogout}>Log out</button>
-    </div>
+    <>
+      <Navbar />
+      <div className='dashboard-view-container continer grow'>{currentView}</div>
+    </>
   );
 }

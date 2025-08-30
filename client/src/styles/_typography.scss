@@ -61,6 +61,18 @@ span {
   @include body-font();
 }
 
+p,
+span {
+  &.font-size {
+    &-small {
+      font-size: $font-size_s;
+    }
+    &-extra-small {
+      font-size: $font-size_xs;
+    }
+  }
+}
+
 .semi-bold {
   font-weight: 500;
 }

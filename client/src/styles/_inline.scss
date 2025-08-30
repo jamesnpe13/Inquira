@@ -155,19 +155,19 @@
   }
 
   &-inline {
-    margin-inline: $spacing_s;
+    padding-inline: $spacing_s;
 
     &-0 {
-      margin-inline: 0;
+      padding-inline: 0;
     }
     &-small {
-      margin-inline: $spacing_s;
+      padding-inline: $spacing_s;
     }
     &-medium {
-      margin-inline: $spacing_m;
+      padding-inline: $spacing_m;
     }
     &-large {
-      margin-inline: $spacing_l;
+      padding-inline: $spacing_l;
     }
   }
 }
