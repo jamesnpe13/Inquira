@@ -15,10 +15,7 @@ export default function Login() {
 
   // check if session exists then redirect to dashboard
   useEffect(() => {
-    if (accessToken) {
-      navigate(ROUTES.dashboard.path);
-    }
-
+    if (accessToken) navigate(ROUTES.dashboard.path);
     setIsLoading(false);
   }, []);
 

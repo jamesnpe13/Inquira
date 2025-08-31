@@ -5,7 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 export const useGlobalStore = create(
   persist(
     (set) => ({
-      theme: 'light',
+      theme: 'dark',
       setTheme: (theme) => set({ theme }),
       // other non-persistent states can go here
       user: null,

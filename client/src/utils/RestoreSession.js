@@ -1,30 +1,50 @@
-import { endSession, restoreSession } from '../services/sessionService';
-import PageLoading from '../components/PageLoading';
-import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useGlobalStore } from '../store/useGlobalStore';
+import { restoreSession } from '../services/sessionService';
+import PageLoading from '../components/PageLoading';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../router/routerConfig';
 
 export default function RestoreSession({ children }) {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation();
+  const [allowRender, setAllowRender] = useState(false);
+  const { user } = useGlobalStore();
+
+  console.log('[>>> COMPONENT RENDER]', location.pathname);
 
   useEffect(() => {
-    (async function () {
-      const isRestored = await restoreSession();
+    console.log('[useEffect]');
+    console.log('USER: ', user);
 
-      if (!isRestored) {
-        await endSession(); // logout end session
-        navigate(ROUTES.login.path, { replace: true }); // navigate to login
-        setIsLoading(false);
-
-        return;
+    async function checkToken() {
+      console.log('Setting a new access token');
+      try {
+        const res = await restoreSession();
+        if (!res) throw new Error('REDIRECTING TO LOGIN');
+      } catch (error) {
+        console.error(error);
+        navigate(ROUTES.login.path, { replace: true });
       }
+    }
 
-      setIsLoading(false);
-    })();
-  }, []);
+    if (!user) {
+      checkToken();
+      return;
+    }
 
-  if (isLoading) return <PageLoading />;
+    if (
+      location.pathname === ROUTES.login.path ||
+      location.pathname === ROUTES.homepage.path ||
+      location.pathname === ROUTES.register.path
+    ) {
+      console.log('navigating back to dashboard');
+      navigate(ROUTES.dashboard.path, { replace: true });
+      return;
+    }
 
-  return children;
+    setAllowRender(true);
+  }, [user, location.pathname]);
+
+  return allowRender ? children : <PageLoading />;
 }

@@ -1,13 +1,23 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../router/routerConfig';
 import axios from 'axios';
+import PageLoading from '../components/PageLoading';
+import { useGlobalStore } from '../store/useGlobalStore';
 
 export default function Register() {
+  const [isLoading, setIsLoading] = useState(true);
+  const { accessToken } = useGlobalStore();
   const navigate = useNavigate();
   const formRef = useRef(null);
   const password1Ref = useRef();
   const password2Ref = useRef();
+
+  // check if session exists then redirect to dashboard
+  useEffect(() => {
+    if (accessToken) navigate(ROUTES.dashboard.path);
+    setIsLoading(false);
+  }, []);
 
   // Cancel click handler
   const handleClickCancel = (e) => {
@@ -75,6 +85,8 @@ export default function Register() {
       password2Ref.current.value = '';
     }
   };
+
+  if (isLoading) return <PageLoading />;
 
   return (
     <>
