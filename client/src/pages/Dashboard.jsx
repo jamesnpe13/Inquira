@@ -1,7 +1,3 @@
-import { useDashboardStore } from '../store/useDashboardStore';
-import { useGlobalStore } from '../store/useGlobalStore';
-import { endSession } from '../services/sessionService';
-import { ROUTES } from '../router/routerConfig';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 

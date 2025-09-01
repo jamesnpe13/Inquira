@@ -1,5 +1,7 @@
-import React from 'react';
-
 export default function Catchall() {
-  return <div>404 Page not found.</div>;
+  return (
+    <div className='container center'>
+      <h2>404 Page not found.</h2>
+    </div>
+  );
 }

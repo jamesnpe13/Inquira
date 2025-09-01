@@ -52,7 +52,9 @@ export default function Login() {
     } catch (error) {
       console.error(error);
     } finally {
-      passwordRef.current.value = '';
+      if (passwordRef.current) {
+        passwordRef.current.value = '';
+      }
     }
   };
 

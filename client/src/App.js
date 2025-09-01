@@ -3,7 +3,6 @@ import { useGlobalStore } from './store/useGlobalStore';
 import { useEffect } from 'react';
 import AppRoutes from './router/router';
 import { apiAuth } from './services/apiService';
-import RestoreSession from './utils/RestoreSession';
 
 function App() {
   const { theme } = useGlobalStore();
@@ -26,11 +25,7 @@ function App() {
 
   window.getHealth = getHealth;
 
-  return (
-    <>
-      <AppRoutes />
-    </>
-  );
+  return <AppRoutes />;
 }
 
 export default App;

@@ -3,8 +3,6 @@ import Dashboard from '../pages/Dashboard';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Catchall from '../pages/Catchall';
-import RestoreSession from '../utils/RestoreSession';
-import RequireAuth from '../utils/RequireAuth';
 
 const route = (path, element, title) => {
   return { path, element, title };
