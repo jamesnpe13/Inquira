@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 /* views */
@@ -23,7 +23,7 @@ export default function Dashboard() {
   return (
     <>
       <Navbar />
-      <div className='dashboard-view-container continer grow'>{currentView}</div>
+      <div className='dashboard-view-container continer grow'>{currentView}</div>;
     </>
   );
 }

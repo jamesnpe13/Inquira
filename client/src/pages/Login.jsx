@@ -61,10 +61,10 @@ export default function Login() {
   if (isLoading) return <PageLoading />;
 
   return (
-    <div className='page-container container padding-small grow center-single overflow-y-scroll'>
+    <div className='page-container container padding-small grow center-single overflow-y-auto'>
       <div className='content-container container restrict-s'>
         {/* login panel */}
-        <div className='panel'>
+        <div className='panel transparent'>
           <div className='container align-items-center gap-0'>
             <h1 className='logo-text font-color-white'>Inquira.</h1>
             <h2>Forms Made Easy</h2>

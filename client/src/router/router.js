@@ -18,7 +18,7 @@ export default function AppRoutes() {
 
       {/* Restore session */}
       <Route element={<RestoreSession />}>
-        <Route path='/Dashboard' element={<Dashboard />} />
+        <Route path='/dashboard' element={<Dashboard />} />
       </Route>
 
       {/* Catch all */}

@@ -210,6 +210,12 @@ button {
   &.wrap {
     flex-wrap: wrap;
   }
+
+  &.transparent {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+  }
 }
 
 hr {
@@ -237,7 +243,7 @@ input[type='email'],
 input[type='number'],
 select {
   @include unset();
-  background-color: $shade_6;
+  background-color: color.mix(black, rgba(0, 0, 0, 0), 20%);
   max-height: $control-height_m;
   min-height: $control-height_m;
   height: 100%;
@@ -249,6 +255,7 @@ select {
   flex-grow: 1;
   display: flex;
   align-items: center;
+  // border: 1px solid white;
 
   &:focus {
     border: 2px solid $color_tertiary;

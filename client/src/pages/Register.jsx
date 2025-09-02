@@ -90,10 +90,10 @@ export default function Register() {
 
   return (
     <>
-      <div className='page-container container grow padding-small center-single overflow-auto'>
+      <div className='page-container container grow padding-small center-single overflow-y-auto'>
         <div className='content-container container restrict-s'>
           {/* login panel */}
-          <div className='panel'>
+          <div className='panel transparent'>
             <div className='container align-items-center gap-0'>
               <h1 className='logo-text font-color-white'>Inquira.</h1>
               <h2>Forms Made Easy</h2>
@@ -135,10 +135,10 @@ export default function Register() {
               </div>
 
               <div className='container row margin-top-medium'>
-                <button type='button' onClick={handleClickCancel} className='btn-secondary grow'>
+                <button type='button' onClick={handleClickCancel} className='btn-secondary width-max'>
                   Cancel
                 </button>
-                <button type='submit' className='btn-success grow'>
+                <button type='submit' className='btn-success width-max'>
                   Create account
                 </button>
               </div>

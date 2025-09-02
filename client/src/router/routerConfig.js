@@ -9,9 +9,9 @@ const route = (path, element, title) => {
 };
 
 export const ROUTES = {
-  dashboard: route('/dashboard', <Dashboard />, 'Dashboard', true),
-  register: route('/register', <Register />, 'Register', true),
+  dashboard: route('/dashboard', <Dashboard />, 'Dashboard'),
+  register: route('/register', <Register />, 'Register'),
   catchall: route('/*', <Catchall />, 'Page Not Found'),
-  login: route('/login', <Login />, 'Login', true),
-  homepage: route('/', <Homepage />, 'Home', true),
+  login: route('/login', <Login />, 'Login'),
+  homepage: route('/', <Homepage />, 'Home'),
 };
