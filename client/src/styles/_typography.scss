@@ -26,27 +26,33 @@
 .font-size-xl {
   font-size: $font-size_xl;
 }
+.font-size-xxl {
+  font-size: $font-size_xxl;
+}
 
 body {
   @include body-font();
   font-size: $font-size_m;
+  line-height: 150%;
 }
 
 h1 {
   @include header-font();
-  font-size: $font-size_xl;
+  font-size: $font-size_xxl;
   font-weight: 900;
   // letter-spacing: calc($font-size_xl * 0.05);
   margin-bottom: $spacing_s;
   color: $color_primary;
+  line-height: 100%;
 }
 
 h2 {
   @include header-font();
-  font-size: $font-size_l;
-  font-weight: 800;
+  font-size: $font-size_xl;
+  font-weight: 900;
   margin-bottom: $spacing_s;
   color: $color_primary;
+  line-height: 100%;
 }
 
 h3 {
@@ -54,6 +60,7 @@ h3 {
   font-size: $font-size_m;
   font-weight: 800;
   margin-bottom: $spacing_s;
+  line-height: 100%;
 }
 
 p,
@@ -132,9 +139,4 @@ span {
   &-danger {
     color: $color_danger;
   }
-}
-
-.logo-text {
-  font-size: 60px;
-  margin: 0;
 }

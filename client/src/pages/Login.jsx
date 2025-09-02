@@ -66,8 +66,8 @@ export default function Login() {
         {/* login panel */}
         <div className='panel transparent'>
           <div className='container align-items-center gap-0'>
-            <h1 className='logo-text font-color-white'>Inquira.</h1>
-            <h2>Forms Made Easy</h2>
+            <h1 className='logo-text'>Inquira.</h1>
+            <p>Forms Made Easy</p>
           </div>
           <hr />
 

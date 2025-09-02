@@ -23,7 +23,9 @@ export default function Dashboard() {
   return (
     <>
       <Navbar />
-      <div className='dashboard-view-container continer grow'>{currentView}</div>;
+      <div className='dashboard-view-container container grow padding-inline-medium padding-block-large align-items-center'>
+        {<div className='container restrict-m'>{currentView}</div>}
+      </div>
     </>
   );
 }

@@ -1,22 +1,42 @@
+@use 'sass:color';
 @use '../styles/colors' as *;
 @use '../styles/variables' as *;
 @use '../styles/typography' as *;
 
 .navbar {
-  height: 80px;
-  width: 100%;
-  display: flex;
+  .primary-bar {
+    height: max-content;
+    width: 100%;
+    display: flex;
+    background-color: color.mix(black, $tint, 70%);
 
-  .logo-container {
-    h5 {
-      @include header-font();
-      font-size: $font-size_l;
+    .logo-container {
+      h5 {
+        @include header-font();
+        font-size: $font-size_l;
+      }
+    }
+
+    .nav-container {
+    }
+
+    .menu-panel {
     }
   }
 
-  .nav-container {
-  }
+  .secondary-bar {
+    height: max-content;
+    width: 100%;
+    display: flex;
+    background-color: color.mix(black, $tint, 55%);
+    flex-wrap: wrap-reverse;
 
-  .menu-panel {
+    .nav-container {
+      flex-grow: 1;
+    }
+    .search-container {
+      flex-grow: 1;
+      flex-shrink: 1;
+    }
   }
 }

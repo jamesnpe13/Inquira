@@ -95,8 +95,8 @@ export default function Register() {
           {/* login panel */}
           <div className='panel transparent'>
             <div className='container align-items-center gap-0'>
-              <h1 className='logo-text font-color-white'>Inquira.</h1>
-              <h2>Forms Made Easy</h2>
+              <h1 className='logo-text'>Inquira.</h1>
+              <p>Forms Made Easy</p>
             </div>
             <hr />
             <p className='padding-medium'>
@@ -134,11 +134,11 @@ export default function Register() {
                 />
               </div>
 
-              <div className='container row margin-top-medium'>
-                <button type='button' onClick={handleClickCancel} className='btn-secondary width-max'>
+              <div className='container row margin-top-medium wrap'>
+                <button type='button' onClick={handleClickCancel} className='btn-secondary grow'>
                   Cancel
                 </button>
-                <button type='submit' className='btn-success width-max'>
+                <button type='submit' className='grow'>
                   Create account
                 </button>
               </div>

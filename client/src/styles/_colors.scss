@@ -1,7 +1,7 @@
 @use 'sass:color';
 
-$color_primary: #79a8ff;
-$color_secondary: #e140a0;
+$color_primary: #dacb45;
+$color_secondary: #79a8ff;
 $color_tertiary: rgb(45, 104, 200);
 
 $gradient-color_1: rgb(96, 41, 144);
@@ -16,9 +16,9 @@ $color_danger: #f44336;
 $color_white: rgb(244, 244, 244);
 $color_black: rgb(10, 10, 10);
 
-$tint-value: 20%;
+$tint-value: 100%;
 $tint-black-value: 100%;
-$tint: rgb(110, 124, 250);
+$tint: rgb(21, 23, 34);
 $tint-black: color.mix(black, white, $tint-black-value);
 $background-color_light: rgb(236, 236, 236);
 $background-color_dark: color.mix($tint, $tint-black, $tint-value);

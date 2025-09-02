@@ -23,7 +23,9 @@ export default function RestoreSession() {
           return;
         }
       }
+
       setAllowRender(true);
+      console.log('HERE');
     };
 
     checkSession();
