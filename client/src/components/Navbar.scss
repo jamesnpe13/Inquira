@@ -29,14 +29,16 @@
     width: 100%;
     display: flex;
     background-color: color.mix(black, $tint, 55%);
-    flex-wrap: wrap-reverse;
+    position: relative;
 
     .nav-container {
-      flex-grow: 1;
+      // flex-grow: 1;
     }
     .search-container {
-      flex-grow: 1;
-      flex-shrink: 1;
+      justify-self: flex-end;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
     }
   }
 }

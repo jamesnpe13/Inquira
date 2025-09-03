@@ -58,19 +58,7 @@ function PrimaryBar({ displayName, handleClickMenu, handleClickLogout }) {
 
 // Secondary bar
 function SecondaryBar() {
-  return (
-    <div className='secondary-bar container row gap justify-items-start padding-small padding-inline-medium'>
-      <div className='nav-container container align-items-center row gap-medium push-left width-min grow'>
-        <button className='btn-text '>Form Browser</button>
-        <button className='btn-text '>Editor</button>
-        <button className='btn-text '>Responses</button>
-      </div>
-
-      <div className='search-container container align-items-center row push-right width-min grow'>
-        <input type='text' placeholder='Search' className='width-max' />
-      </div>
-    </div>
-  );
+  return <div className='secondary-bar container row gap padding-small padding-inline-medium'></div>;
 }
 
 // Fly-out menu panel
