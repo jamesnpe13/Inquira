@@ -231,9 +231,25 @@ hr {
 .navbar {
   z-index: 1;
 }
+input[type='password'] {
+  color: $color_white;
+  background-color: color.mix(black, rgba(0, 0, 0, 0), 20%);
+  max-height: $control-height_m;
+  min-height: $control-height_m;
+  height: 100%;
+  padding-inline: $spacing_m;
+  border-radius: $border-radius_s;
+  font-size: $font-size_m;
+  font-weight: 300;
+  min-width: $control-min-width;
+  max-width: $control-max-width;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  // border: 1px solid white;
+}
 
 input[type='text'],
-input[type='password'],
 input[type='url'],
 input[type='tel'],
 input[type='search'],
@@ -245,12 +261,14 @@ input[type='email'],
 input[type='number'],
 select {
   @include unset();
+  color: $color_white;
   background-color: color.mix(black, rgba(0, 0, 0, 0), 20%);
   max-height: $control-height_m;
   min-height: $control-height_m;
   height: 100%;
   padding-inline: $spacing_m;
   border-radius: $border-radius_s;
+  font-size: $font-size_m;
   font-weight: 300;
   min-width: $control-min-width;
   max-width: $control-max-width;
