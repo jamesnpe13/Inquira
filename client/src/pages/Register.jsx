@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../router/routerConfig';
-import axios from 'axios';
 import PageLoading from '../components/PageLoading';
 import { useGlobalStore } from '../store/useGlobalStore';
+import { api } from '../services/apiService';
 
 export default function Register() {
   const [isLoading, setIsLoading] = useState(true);
@@ -75,7 +75,7 @@ export default function Register() {
     };
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/register', payload);
+      const res = await api.post('http://localhost:5000/api/auth/register', payload);
       console.log('User created successfully');
       navigate(ROUTES.login.path);
     } catch (error) {
