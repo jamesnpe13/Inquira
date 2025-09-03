@@ -1,5 +1,11 @@
 const mongoose = require('mongoose');
-const mongoDB_url = `${process.env.MONGO_DB_CONNECTION_STRING}${process.env.DB_NAME}?authSource=admin`;
+
+const prodConnString =
+  process.env.NODE_ENV === 'production'
+    ? process.env.MONGO_DB_CONNECTION_STRING
+    : process.env.MONGO_DB_CONNECTION_STRING_DEV;
+
+const mongoDB_url = `${prodConnString}${process.env.DB_NAME}?authSource=admin`;
 console.log(mongoDB_url);
 
 async function connectDB() {
