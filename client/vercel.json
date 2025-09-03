@@ -1,9 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/:match*",
+      "source": "/api/:match*",
       "destination": "https://inquira-production.up.railway.app/api/:match*"
-    },
-    { "source": "/(.*)", "destination": "/" }
+    }
   ]
 }
