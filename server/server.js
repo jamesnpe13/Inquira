@@ -10,7 +10,7 @@ const connectDB = require('./database/db');
 // config variables
 const port = process.env.SERVER_PORT || 5000;
 const corsConfig = {
-  origin: 'http://localhost:3000',
+  origin: process.env.CLIENT_ORIGIN,
   credentials: true,
 };
 
