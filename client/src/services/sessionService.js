@@ -45,7 +45,7 @@ export const refreshToken = async () => {
     setAccessToken(newAccessToken); // store access token
     return res;
   } catch (error) {
-    console.error(error);
+    console.error();
     return false;
   }
 };

@@ -75,7 +75,7 @@ export default function Register() {
     };
 
     try {
-      const res = await api.post('http://localhost:5000/api/auth/register', payload);
+      const res = await api.post('/auth/register', payload);
       console.log('User created successfully');
       navigate(ROUTES.login.path);
     } catch (error) {
